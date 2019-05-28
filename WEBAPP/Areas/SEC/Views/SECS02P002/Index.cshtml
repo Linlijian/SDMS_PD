@@ -1,0 +1,197 @@
+﻿@using FluentBootstrap
+@using WEBAPP.Helper
+@using DataAccess.SEC
+@using UtilityLib
+
+@model SECS02P002Model
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+@using (var form = Html.Bootstrap().Form().SetId("form1").SetHorizontal().Begin())
+{
+    @form.ValidationSummary(true).AddCss(Css.Hidden)
+    @Html.AntiForgeryToken()
+
+    using (var rowInfo = Html.Bootstrap().GridRow().Begin())
+    {
+        using (rowInfo.GridColumn(12).SetXs(12).Begin())
+        {
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.InputFor(m => m.USER_ID)
+                }
+            }
+
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.InputFor(m => m.USER_FNAME_TH)
+                }
+
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.InputFor(m => m.USER_LNAME_TH)
+                }
+            }
+
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.InputFor(m => m.USER_FNAME_EN)
+                }
+
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.InputFor(m => m.USER_LNAME_EN)
+                }
+            }
+
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                @*using (row1.GridColumn(6).Begin())
+                {
+                    @form.SelectFor(t => t.DEPT_ID, Model.DEPT_ID_MODEL.ToSelectList("Value", "Text", Model.DEPT_ID), IsSearch: true)
+                }*@
+
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.SelectFor(t => t.USG_ID, Model.USG_ID_MODEL.ToSelectList("Value", "Text", Model.USG_ID), IsSearch: true)
+                }
+
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.SelectFor(t => t.IS_DISABLED, Model.IS_DISABLED_MODEL.ToSelectList("Value", "Text", Model.IS_DISABLED), IsSearch: true)
+                }
+            }
+        }
+    }
+}
+@using (var row = Html.Bootstrap().GridRow().SetId("rowGridSearch").SetVisibility(Visibility.Hidden).Begin())
+{
+    using (row.GridColumn(12).Begin())
+    {
+        @Html.Bootstrap().Table().SetId("GridSearch").SetStyle(TableStyle.TableStripedBorderedHover)
+    }
+}
+
+@section scripts{
+
+    @Html.GridScript("Search",
+        new GridConfig
+        {
+            GetConfig = new DefaultConfig(Url.Action("Search")),
+            DeleteConfig = new DefaultConfig(Url.Action("DeleteSearch")),
+            DefaultBinding = Model.IsDefaultSearch,
+            ScrollX = false
+            //VisibleExportButton = false,
+            //CustomsExportConfig = new DefaultConfig(Url.Action("CustomsExport"))
+        },
+        Html.GridColumnCommand(Html.GridCommand(StandardButtonName.Edit, Translation.CenterLang.Center.Edit, Url.Action(StandardButtonName.Edit), FaIcons.FaPencil, TextColor.orange2, new VSMParameter("USER_ID"))),
+        new GridColumn("USER_ID", Translation.SEC.SECS02P002.USER_ID, 50).SetKey(),
+        new GridColumn("COM_CODE", null, null).SetKey().SetNotVisible(),
+        new GridColumn("USER_FNAME_TH", Translation.SEC.SECS02P002.USER_FNAME_TH, 50),
+        new GridColumn("USER_LNAME_TH", Translation.SEC.SECS02P002.USER_LNAME_TH, 50),
+        new GridColumn("USER_FNAME_EN", Translation.SEC.SECS02P002.USER_FNAME_EN, 50),
+        new GridColumn("USER_LNAME_EN", Translation.SEC.SECS02P002.USER_LNAME_EN, 50),
+        new GridColumn("USG_NAME_TH", Translation.SEC.SECS02P002.USG_NAME_TH, 50),
+        new GridColumn("IS_DISABLED", Translation.SEC.SECS02P002.STATUS, 50, align: ColumnsTextAlign.Center, render: "RenderACTIVE"),
+        new GridColumn(null, Translation.SEC.SECS02P002.FORGET_PWD, 50, align: ColumnsTextAlign.Center, render: "RENDER_FORGET_PWD")
+        )
+<script>
+    var RenderACTIVE = function (data, type, full, meta) {
+        var tag = '';
+        if (data == 'Y') {
+            tag = '<span class=\"label \">@Translation.SEC.SECS02P002.STATUS_DISBLE</span>';
+        }
+        else if (data == 'N') {
+            tag = '<span class=\"label \">@Translation.SEC.SECS02P002.STATUS_ENABLE</span>';
+        }
+        return tag;
+    };
+    /*****************************************RENDER_FORGET_PWD*********************************************/
+    var RENDER_FORGET_PWD = function (data, type, full, meta, status) {
+        var tag = '';
+
+        if (!isNullOrEmpty(data)) {
+            var tag = '';
+
+            tag += '<a href="javascript:void(0)" id="btnFORGETPWD" name="btnFORGETPWD" >';
+            tag += '<i class="ace-icon fa @FaIcons.FaRefresh align-top bigger-200 blue"></i>';
+            tag += '</a>';
+        }
+        return tag;
+    };
+
+    $(document).ready(function () {
+        $("#GridSearch tbody").on("click", "a[name='btnFORGETPWD']", function (e) {
+            var idx = GridSearch.row($(this).parent()).index();
+            var data = GridSearch.row(idx).data();
+
+            $.confirm({
+                title: null,
+                content: "Are you sure to re password to Default?",
+                columnClass: 'medium',
+                buttons: {
+                    confirm: {
+                        text: $("#hdSysOK").val(),
+                        btnClass: "btn-primary",
+                        action: function () {
+                            waitingDialog.show();
+
+                            $.ajax({
+                                url: '@Url.Action("ForGetPassword")',
+                                type: 'post',
+                                data: data,
+                                success: function (result) {
+                                    if (result.data.ERROR_CODE == 'Y') {
+                                        waitingDialog.hide();
+                                        GridSearch.ajax.reload();
+                                        alertSucs('OK, Password is Defualt (P@ssw0rd)');
+                                    }
+                                    else {
+                                        alertErr(result.data.ERROR_CODE);
+                                        GridSearch.ajax.reload();
+                                    }
+                                },
+                                error: OnAjaxError
+                            });
+                        }
+                    },
+                    cancel: {
+                        text: $("#hdSysCancel").val(),
+                        btnClass: "btn-primary"
+                    }
+                }
+            });
+        });
+    })
+    /************************************************END**************************************************/
+    /***********************************************ALERT*************************************************/
+    function alertSucs(data) {
+        $("#notification").hide()
+        var content = '<div class="alert alert-' + 'success' + ' alert-dismissable alert-' + 'success' + 'new"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><h2>';
+        content += '<i class="ace-icon fa fa-exclamation-triangle bigger-130"></i> ';
+        content += data + '</h2>';
+        content += '</div>';
+
+        $("#notification").html(content).fadeTo(2000, 500);
+    }
+    function alertErr(data) {
+        $("#notification").hide()
+        var content = '<div class="alert alert-' + 'danger' + ' alert-dismissable alert-' + 'danger' + 'new"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><h2>';
+        content += '<i class="ace-icon fa fa-exclamation-triangle bigger-130"></i> ';
+        content += data + '</h2>';
+        content += '</div>';
+
+        $("#notification").html(content).fadeTo(2000, 500);
+    }
+    /************************************************END**************************************************/
+
+    </script>
+}

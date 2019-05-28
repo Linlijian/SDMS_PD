@@ -1,0 +1,90 @@
+﻿@using FluentBootstrap
+@using WEBAPP.Helper
+@using DataAccess.MIS
+@using UtilityLib
+
+@model MISS01P002Model
+
+@{
+    ViewBag.Title = "FilePacket";
+    Layout = "~/Views/Shared/_LayoutChildPage.cshtml";
+}
+
+@using (var form = Html.Bootstrap().Form().SetId("form1").SetHorizontal().Begin())
+{
+    @form.ValidationSummary(true).AddCss(Css.Hidden)
+    @Html.AntiForgeryToken()
+    using (var rowInfo = Html.Bootstrap().GridRow().Begin())
+    {
+        @Html.GetVSMWidgetsBegin(Translation.MIS.MISS01P002.FILE_ID)
+        using (rowInfo.GridColumn(12).SetXs(12).Begin())
+        {
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                using (row1.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label for="ISE_NO_TXT" class="control-label col-md-4">Issue No:</label>
+                        <div class="col-md-8">
+                            <label for="ISE_NO" style="text-align:left;" class="control-label col-md-8">@Model.NO</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                using (row1.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label for="ISE_NO_TXT" class="control-label col-md-4">@Translation.CenterLang.Center.APP_CODE:</label>
+                        <div class="col-md-8">
+                            <label for="ISE_NO" style="text-align:left;" class="control-label col-md-8">@Model.COM_CODE</label>
+                        </div>
+                    </div>
+                }
+                using (row1.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label for="COM_NAME_E_TXT" class="control-label col-md-4">@Translation.CenterLang.Center.COM_NAME_E:</label>
+                        <div class="col-md-8">
+                            <label for="COM_NAME_E" style="text-align:left;" class="control-label col-md-8">@Model.COM_NAME_E</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                using (row1.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label for="ISSUE_DATE_TXT" class="control-label col-md-4">@Translation.CenterLang.Center.ISSUE_DATE:</label>
+                        <div class="col-md-8">
+                            <label for="ISSUE_DATE" style="text-align:left;" class="control-label col-md-8">@Model.ISSUE_DATE</label>
+                        </div>
+                    </div>
+                }
+                using (row1.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label for="COM_NAME_T_TXT" class="control-label col-md-4">@Translation.CenterLang.Center.COM_NAME_T:</label>
+                        <div class="col-md-8">
+                            <label for="COM_NAME_T" style="text-align:left;" class="control-label col-md-8">@Model.COM_NAME_T</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var row1 = Html.Bootstrap().GridRow().Begin())
+            {
+                using (row1.GridColumn(6).Begin())
+                {
+                    @form.TextAreaFor(a => a.FILE_ID, 2, isRequired: true, addValidateMessage: true)
+                }
+                @form.HiddenFor(a => a.COM_CODE)
+                @form.HiddenFor(a => a.FILE_ID)
+                @form.HiddenFor(a => a.NO)
+            }
+        }
+        @Html.GetVSMWidgetsEnd()
+    }
+}
+

@@ -1,0 +1,666 @@
+﻿@using FluentBootstrap
+@using WEBAPP.Helper
+@using DataAccess.Users
+@using UtilityLib
+
+@model DashboardCountSummaryModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+@section stylesheet{
+    <style>
+        .btn-primary, .btn-primary:focus {
+            background-color: #003c72 !important;
+            border-color: #003c72;
+        }
+
+        .page-content {
+            background-color: #fff;
+            position: relative;
+            margin: 0;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        .ash {
+            color: #9f9f9f;
+        }
+    </style>
+    <link href="@Url.Content("~/Content/Chart.min.css")" rel="stylesheet" />
+}
+@*string*@
+@*-------------------------------------------------------------------------------------------------*@
+@foreach (var item in SessionHelper.DashboardCountSummary)
+{
+    <div class="widget-main">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">ประจำเดือน @item.DATENAME</div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="panel panel-primary" style="border-color: #0000ff !important; background-color: #0000ff !important; border-color:#0000ff !important;" id="Panel_Total">
+                            <div class="panel-heading" style="background-color: #0000ff !important; height: 65px;  border-color:#0000ff !important;">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">@item.ALL_ISSUE</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)">
+                                <div class="panel-footer" style="color: #000000 !important;">
+                                    <span class="pull-left">All Issue</span>
+                                    <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-primary" style="border-color: #FF5733 !important; background-color: #FF5733 !important; border-color:#FF5733 !important;" id="Panel_Complete">
+                            <div class="panel-heading" style="background-color: #FF5733 !important; height: 65px;  border-color:#FF5733 !important;">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="h2" id="Complete" style="position: relative; bottom: 12px; color: #000000;">@item.S_OPENING</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)">
+                                <div class="panel-footer" style="color: #000000 !important;">
+                                    <span class="pull-left">Status Opening</span>
+                                    <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-primary" style="border-color: #FFBE33 !important; background-color: #FFBE33 !important; border-color:#FFBE33 !important;" id="Panel_Incomplete">
+                            <div class="panel-heading" style="background-color: #FFBE33 !important; height: 65px;  border-color:#FFBE33 !important;">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_ON_PROCESS</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)">
+                                <div class="panel-footer" style="color: #000000 !important;">
+                                    <span class="pull-left">Status On Process</span>
+                                    <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-primary" style="border-color: #FFF833 !important; background-color: #FFF833 !important; border-color:#FFF833 !important;" id="Panel_Incomplete">
+                            <div class="panel-heading" style="background-color: #FFF833 !important; height: 65px;  border-color:#FFF833 !important;">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_FOLLOW_UP</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)">
+                                <div class="panel-footer" style="color: #000000 !important;">
+                                    <span class="pull-left">Status Follow Up</span>
+                                    <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-primary" style="border-color: #DBFF33 !important; background-color: #DBFF33 !important; border-color:#DBFF33 !important;" id="Panel_Incomplete">
+                            <div class="panel-heading" style="background-color: #DBFF33 !important; height: 65px;  border-color:#DBFF33 !important;">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_GO_LIVE</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)">
+                                <div class="panel-footer" style="color: #000000 !important;">
+                                    <span class="pull-left">Status Go Live</span>
+                                    <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-primary" style="border-color: #84FF33 !important; background-color: #84FF33 !important; border-color:#84FF33 !important;" id="Panel_Incomplete">
+                            <div class="panel-heading" style="background-color: #84FF33 !important; height: 65px;  border-color:#84FF33 !important;">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_CLOSE</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)">
+                                <div class="panel-footer" style="color: #000000 !important;">
+                                    <span class="pull-left">Status Close</span>
+                                    <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">Issue ที่เกิดขึ้นประจำปี @item.YEAR</div>
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="PriolityChart"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="AllAppLication"></canvas>
+            </div>
+        </div>
+
+       <br>
+
+    </div>
+
+}
+@*-------------------------------------------------------------------------------------------------*@
+@section Scripts {
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.bundle.min.js")"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("Dashboard", "Account", new { Area = "Users"})',
+                type: 'post',
+                data: null,
+                contentType: false,
+                processData: false,
+                success: function (Dashboard) {
+                    if (Dashboard != null && Dashboard != isNullOrEmpty) {
+                        //PriolityChart
+                        var ctx = document.getElementById('PriolityChart').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            // The type of chart we want to create
+                            type: 'line',
+
+                            // The data for our dataset
+                            data: {
+                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                                datasets: [{
+                                    fill: false,
+                                    label: 'FZMS All Year',
+                                    backgroundColor: 'rgb(254, 195, 254)',
+                                    borderColor: 'rgb(254, 195, 254)',
+                                    data: [ Dashboard.data.MONTH_FZMS_1,
+                                            Dashboard.data.MONTH_FZMS_2,
+                                            Dashboard.data.MONTH_FZMS_3,
+                                            Dashboard.data.MONTH_FZMS_4,
+                                            Dashboard.data.MONTH_FZMS_5,
+                                            Dashboard.data.MONTH_FZMS_6,
+                                            Dashboard.data.MONTH_FZMS_7,
+                                            Dashboard.data.MONTH_FZMS_8,
+                                            Dashboard.data.MONTH_FZMS_9,
+                                            Dashboard.data.MONTH_FZMS_10,
+                                            Dashboard.data.MONTH_FZMS_11,
+                                            Dashboard.data.MONTH_FZMS_12
+                                    ]
+                                }, {
+                                    fill: false,
+                                    label: 'GBMSR2 All Year',
+                                    backgroundColor: 'rgb(105, 195, 254)',
+                                    borderColor: 'rgb(105, 195, 254)',
+                                    data: [ Dashboard.data.MONTH_GBMSR2_1,
+                                            Dashboard.data.MONTH_GBMSR2_2,
+                                            Dashboard.data.MONTH_GBMSR2_3,
+                                            Dashboard.data.MONTH_GBMSR2_4,
+                                            Dashboard.data.MONTH_GBMSR2_5,
+                                            Dashboard.data.MONTH_GBMSR2_6,
+                                            Dashboard.data.MONTH_GBMSR2_7,
+                                            Dashboard.data.MONTH_GBMSR2_8,
+                                            Dashboard.data.MONTH_GBMSR2_9,
+                                            Dashboard.data.MONTH_GBMSR2_10,
+                                            Dashboard.data.MONTH_GBMSR2_11,
+                                            Dashboard.data.MONTH_GBMSR2_12]
+                                }, {
+                                    fill: false,
+                                    label: 'DLT All Year',
+                                    backgroundColor: 'rgb(105, 195, 128)',
+                                    borderColor: 'rgb(105, 195, 128)',
+                                    data: [Dashboard.data.MONTH_DLT_1,
+                                           Dashboard.data.MONTH_DLT_2,
+                                           Dashboard.data.MONTH_DLT_3,
+                                           Dashboard.data.MONTH_DLT_4,
+                                           Dashboard.data.MONTH_DLT_5,
+                                           Dashboard.data.MONTH_DLT_6,
+                                           Dashboard.data.MONTH_DLT_7,
+                                           Dashboard.data.MONTH_DLT_8,
+                                           Dashboard.data.MONTH_DLT_9,
+                                           Dashboard.data.MONTH_DLT_10,
+                                           Dashboard.data.MONTH_DLT_11,
+                                           Dashboard.data.MONTH_DLT_12
+                                    ]
+                                }, {
+                                    fill: false,
+                                    label: 'EXTS All Year',
+                                    backgroundColor: 'rgb(245, 239, 120)',
+                                    borderColor: 'rgb(245, 239, 120)',
+                                    data: [Dashboard.data.MONTH_EXTS_1,
+                                           Dashboard.data.MONTH_EXTS_2,
+                                           Dashboard.data.MONTH_EXTS_3,
+                                           Dashboard.data.MONTH_EXTS_4,
+                                           Dashboard.data.MONTH_EXTS_5,
+                                           Dashboard.data.MONTH_EXTS_6,
+                                           Dashboard.data.MONTH_EXTS_7,
+                                           Dashboard.data.MONTH_EXTS_8,
+                                           Dashboard.data.MONTH_EXTS_9,
+                                           Dashboard.data.MONTH_EXTS_10,
+                                           Dashboard.data.MONTH_EXTS_11,
+                                           Dashboard.data.MONTH_EXTS_12
+                                    ]
+                                }, {
+                                    fill: false,
+                                    label: 'CMAH All Year',
+                                    backgroundColor: 'rgb(187, 30, 254)',
+                                    borderColor: 'rgb(187, 30, 254)',
+                                    data: [Dashboard.data.MONTH_CMAH_1,
+                                           Dashboard.data.MONTH_CMAH_2,
+                                           Dashboard.data.MONTH_CMAH_3,
+                                           Dashboard.data.MONTH_CMAH_4,
+                                           Dashboard.data.MONTH_CMAH_5,
+                                           Dashboard.data.MONTH_CMAH_6,
+                                           Dashboard.data.MONTH_CMAH_7,
+                                           Dashboard.data.MONTH_CMAH_8,
+                                           Dashboard.data.MONTH_CMAH_9,
+                                           Dashboard.data.MONTH_CMAH_10,
+                                           Dashboard.data.MONTH_CMAH_11,
+                                           Dashboard.data.MONTH_CMAH_12
+                                    ]
+                                }
+
+                                ]
+                            },
+
+                            // Configuration options go here
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: 'Issue on Year'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                }, scales: {
+                                    xAxes: [{
+                                        display: true,
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: 'Month'
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        display: true,
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: 'Value'
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                        //
+                        window.onload = function () {
+                            var ctx = document.getElementById('AllAppLication').getContext('2d');
+                            window.myDoughnut = new Chart(ctx, config);
+                        };
+                        var config = {
+                            type: 'doughnut',
+                            data: {
+                                datasets: [{
+                                    data: [
+                                       Dashboard.data.APP_1, Dashboard.data.APP_2, Dashboard.data.APP_3, Dashboard.data.APP_4, Dashboard.data.APP_5
+                                    ],
+                                    backgroundColor: [
+                                        'Red',
+                                    'Orange',
+                                    'Yellow',
+                                    'Green',
+                                    'Blue'
+                                    ],
+                                    label: 'Dataset 1'
+                                }],
+                                labels: [
+                                    'FZMS',
+                                    'GBMSR2',
+                                    'DLT',
+                                    'EXTS',
+                                    'CMAH'
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Issue Opening in All Application'
+                                },
+                                animation: {
+                                    animateScale: true,
+                                    animateRotate: true
+                                }
+                            }
+                        };
+                    }
+                },
+                error: OnAjaxError
+            });
+        });
+
+    </script>
+}
+@*<div style="background-image:url('@Url.Content("~/Uploads/Image/pagenotfound.png")');background-repeat: no-repeat; background-position-x: center; background-color:white; width:100%; height:440px; ">*@
+@*@foreach (var item in SessionHelper.DashboardCountSummary)
+    {
+       <div class="widget-main" style="background-color: #97F5E0 !important; border-color: #AE97F5 !important;">
+           <div class="row">
+               <div class="col-md-12">
+                   <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">ประจำเดือน @item.DATENAME</div>
+                   <div class="row">
+                       <div class="col-md-2">
+                           <div class="panel panel-primary" style="border-color: #0000ff !important; background-color: #0000ff !important; border-color:#0000ff !important;" id="Panel_Total">
+                               <div class="panel-heading" style="background-color: #0000ff !important; height: 65px;  border-color:#0000ff !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">@item.ALL_ISSUE</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">All Issue</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-2">
+                           <div class="panel panel-primary" style="border-color: #FF5733 !important; background-color: #FF5733 !important; border-color:#FF5733 !important;" id="Panel_Complete">
+                               <div class="panel-heading" style="background-color: #FF5733 !important; height: 65px;  border-color:#FF5733 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Complete" style="position: relative; bottom: 12px; color: #000000;">@item.S_OPENING</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Status Opening</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-2">
+                           <div class="panel panel-primary" style="border-color: #FFBE33 !important; background-color: #FFBE33 !important; border-color:#FFBE33 !important;" id="Panel_Incomplete">
+                               <div class="panel-heading" style="background-color: #FFBE33 !important; height: 65px;  border-color:#FFBE33 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_ON_PROCESS</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Status On Process</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-2">
+                           <div class="panel panel-primary" style="border-color: #FFF833 !important; background-color: #FFF833 !important; border-color:#FFF833 !important;" id="Panel_Incomplete">
+                               <div class="panel-heading" style="background-color: #FFF833 !important; height: 65px;  border-color:#FFF833 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_FOLLOW_UP</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Status Follow Up</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-2">
+                           <div class="panel panel-primary" style="border-color: #DBFF33 !important; background-color: #DBFF33 !important; border-color:#DBFF33 !important;" id="Panel_Incomplete">
+                               <div class="panel-heading" style="background-color: #DBFF33 !important; height: 65px;  border-color:#DBFF33 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_GO_LIVE</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Status Go Live</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-2">
+                           <div class="panel panel-primary" style="border-color: #84FF33 !important; background-color: #84FF33 !important; border-color:#84FF33 !important;" id="Panel_Incomplete">
+                               <div class="panel-heading" style="background-color: #84FF33 !important; height: 65px;  border-color:#84FF33 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-tasks fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Incomplete" style="position: relative; bottom: 12px; color: #000000;">@item.S_CLOSE</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Status Close</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+           <br>
+
+           <div class="row">
+               <div class="col-md-12">
+                   <div class="row">
+                       <div class="col-md-3">
+                           <center>
+                               <div class="easy-pie-chart percentage" data-percent="@item.CRITICAL" data-color="#FF002E">
+                                   <span class="percent" style="color: #000000 !important;">@item.CRITICAL%</span>
+                               </div>
+                               <h6 class="widget-title">
+                                   Critical
+                               </h6>
+                           </center>
+                       </div>
+                       <div class="col-md-3">
+                           <center>
+                               <div class="easy-pie-chart percentage" data-percent="@item.HIGH" data-color="#FF8700">
+                                   <span class="percent" style="color: #000000 !important;">@item.HIGH%</span>
+                               </div>
+                               <h6 class="widget-title">
+                                   High
+                               </h6>
+                           </center>
+                       </div>
+                       <div class="col-md-3">
+                           <center>
+                               <div class="easy-pie-chart percentage" data-percent="@item.MEDIUM" data-color="#FFCC00">
+                                   <span class="percent" style="color: #000000 !important;">@item.MEDIUM%</span>
+                               </div>
+                               <h6 class="widget-title">
+                                   Medium
+                               </h6>
+                           </center>
+                       </div>
+                       <div class="col-md-3">
+                           <center>
+                               <div class="easy-pie-chart percentage" data-percent="@item.LOW" data-color="#00FF89">
+                                   <span class="percent" style="color: #000000 !important;">@item.LOW%</span>
+                               </div>
+                               <h6 class="widget-title">
+                                   Low
+                               </h6>
+                           </center>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+           <br><br>
+           <div class="row">
+               <div class="col-md-12">
+                   <div class="row">
+                       <div class="col-md-3">
+                           <div class="panel panel-primary" style="border-color: #F344DE !important; background-color: #F344DE !important; border-color:#F344DE !important;" id="Panel_Total">
+                               <div class="panel-heading" style="background-color: #F344DE !important; height: 65px;  border-color:#F344DE !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-info fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">@item.RESPONSE_TIME_OUT</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Response Target Time Out</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="panel panel-primary" style="border-color: #44ECF3 !important; background-color: #44ECF3 !important; border-color:#44ECF3 !important;" id="Panel_Total">
+                               <div class="panel-heading" style="background-color: #44ECF3 !important; height: 65px;  border-color:#44ECF3 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-info fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">@item.RESOLUTION_TIME_OUT</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Resolution Target Time Out</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="panel panel-primary" style="border-color: #7C44F3 !important; background-color: #7C44F3 !important; border-color:#7C44F3 !important;" id="Panel_Total">
+                               <div class="panel-heading" style="background-color: #7C44F3 !important; height: 65px;  border-color:#7C44F3 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-info fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">@item.CLOSE_BEFOR_TARGET</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Close Befor Target Date</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="panel panel-primary" style="border-color: #F51D44 !important; background-color: #F51D44 !important; border-color:#F51D44 !important;" id="Panel_Total">
+                               <div class="panel-heading" style="background-color: #F51D44 !important; height: 65px;  border-color:#F51D44 !important;">
+                                   <div class="row">
+                                       <div class="col-xs-3">
+                                           <i class="fa fa-info fa-3x" style="position: relative; bottom: -4px;"></i>
+                                       </div>
+                                       <div class="col-xs-9 text-right">
+                                           <div class="h2" id="Total" style="position: relative; bottom: 12px; color: #000000;">@item.CLOSE_AFTER_TARGET</div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <a href="javascript:void(0)">
+                                   <div class="panel-footer" style="color: #000000 !important;">
+                                       <span class="pull-left">Close After Target Date</span>
+                                       <span class="pull-right"><i class="glyphicon glyphicon-filter"></i></span>
+                                       <div class="clearfix"></div>
+                                   </div>
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    }*@

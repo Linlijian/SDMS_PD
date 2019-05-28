@@ -1,0 +1,314 @@
+﻿@using FluentBootstrap
+@using WEBAPP.Helper
+@using DataAccess.MIS
+@using UtilityLib
+
+@model MISS01P001Model
+
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_LayoutChildPage.cshtml";
+}
+
+@using (var form = Html.Bootstrap().Form().SetId("form1").SetHorizontal().Begin())
+{
+    @form.ValidationSummary(true).AddCss(Css.Hidden)
+    @Html.AntiForgeryToken()
+
+    @Html.GetVSMWidgetsBegin(Translation.MIS.MISS01P001.ISSUE_CALCULATE)
+    using (var row = Html.Bootstrap().GridRow().Begin())
+    {
+        using (row.GridColumn(12).SetXs(12).Begin())
+        {
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label for="@Translation.MIS.MISS01P001.ID_REF_NO" class="control-label col-md-4">@Translation.MIS.MISS01P001.REF_NO :</label>
+                        <div class="col-md-8">
+                            <label for="@Translation.MIS.MISS01P001.ID_REF_NO" id="@Translation.MIS.MISS01P001.ID_REF_NO" class="control-label">@Model.REF_NO</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.APP_CODE :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.COM_CODE</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.NO :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.NO</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.ISSUE_DATE :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.ISSUE_DATE</label>
+                        </div>
+                    </div>
+                }
+
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.ISSUE_DATE_PERIOD :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.ISSUE_DATE_PERIOD</label>
+                        </div>
+                    </div>
+                }
+
+            }
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.ISSUE_BY :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.ISSUE_BY</label>
+                        </div>
+                    </div>
+                }
+
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.ISSUE_TYPE :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.ISSUE_TYPE</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.ESSR_NO :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.ESSR_NO</label>
+                        </div>
+                    </div>
+                }
+
+                using (r.GridColumn(6).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.RESPONSE_DATE :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.ISSUE_TYPE</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    @form.TextAreaFor(a => a.DETAIL, 4).SetReadonly()
+
+                }
+                using (r.GridColumn(6).Begin())
+                {
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.RESPONSE_BY :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.RESPONSE_BY</label>
+                        </div>
+                    </div>
+                }
+            }
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                   @form.TextAreaFor(a => a.MODULE, 4).SetReadonly()
+                }
+                using (r.GridColumn(6).Begin())
+                {
+                    @form.TextAreaFor(a => a.ROOT_CAUSE, 4).SetReadonly()
+                }
+            }
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    @form.TextAreaFor(a => a.SOLUTION, 4).SetReadonly()
+                }
+                using (r.GridColumn(6).Begin())
+                {
+                    @form.TextAreaFor(a => a.EFFECTS, 4).SetReadonly()
+                }
+            }
+        }
+    }
+    @Html.GetVSMWidgetsEnd()
+    using (var r = Html.Bootstrap().GridRow().Begin())
+    {
+        using (r.GridColumn(6).Begin())
+        {
+            @Html.GetVSMWidgetsBegin(Translation.MIS.MISS01P001.ISSUE_PROPERTY)
+            using (r.GridColumn(12).Begin())
+            {
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.PRIORITY :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.PRIORITY</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.RESPONSE_TARGET :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.RESPONSE_TARGET</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.RESOLUTION_TARGET :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.RESOLUTION_TARGET</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.DEFECT :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.DEFECT</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.MAN_PLM_SA :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.MAN_PLM_SA</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.MAN_PLM_QA :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.MAN_PLM_QA</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.MAN_PLM_PRG :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.MAN_PLM_PRG</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.MAN_PLM_PL :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.MAN_PLM_PL</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.MAN_PLM_DBA :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.MAN_PLM_DBA</label>
+                        </div>
+                    </div>
+                }
+            }
+            @Html.GetVSMWidgetsEnd()
+        }
+        using (r.GridColumn(6).Begin())
+        {
+            @Html.GetVSMWidgetsBegin(Translation.MIS.MISS01P001.ISSUE_DATETIME)
+            using (r.GridColumn(12).Begin())
+            {
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.TARGET_DATE :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.TARGET_DATE</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.CLOSE_DATE :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.CLOSE_DATE</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.DEPLOY_QA :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.DEPLOY_QA</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-4">@Translation.MIS.MISS01P001.DEPLOY_PD :</label>
+                        <div class="col-md-8">
+                            <label class="control-label">@Model.DEPLOY_PD</label>
+                        </div>
+                    </div>
+                }
+                using (r.GridColumn(12).Begin())
+                {
+                   @form.TextAreaFor(a => a.REMARK, 4).SetReadonly()
+                }
+            }
+            @Html.GetVSMWidgetsEnd()
+        }
+    }
+}
+
+
+@*<script>
+
+        $("label").css({
+            fontSize: "18px"
+        });
+    </script>*@

@@ -1,0 +1,530 @@
+﻿@using FluentBootstrap
+@using WEBAPP.Helper
+@using DataAccess.SEC
+@using UtilityLib
+
+@model SECS02P002Model
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutChildPage.cshtml";
+}
+
+@using (var form = Html.Bootstrap().Form().SetId("form1").SetHorizontal().Begin())
+{
+    @Html.AntiForgeryToken()
+
+    using (var row = Html.Bootstrap().GridRow().Begin())
+    {
+        using (row.GridColumn(12).SetXs(12).Begin())
+        {
+            using (var r = Html.Bootstrap().GridRow().Begin())
+            {
+                using (r.GridColumn(6).Begin())
+                {
+                    @form.InputFor(m => m.USER_ID, isRequired: true).IsDisabled()
+                }
+            }
+            using (Html.Bootstrap().Div().SetId("REPWD").SetVisibility(Visibility.Hidden).Begin())
+            {
+                @Html.GetVSMWidgetsBegin(Translation.SEC.SECS02P002.RE_PWD_CRITERIA)
+                using (var r = Html.Bootstrap().GridRow().Begin())
+                {
+                    using (row.GridColumn(12).SetXs(12).Begin())
+                    {
+                        using (var ra = Html.Bootstrap().GridRow().Begin())
+                        {
+                            using (ra.GridColumn(8).SetMdOffset(2).Begin())
+                            {
+                                @form.PasswordFor(m => m.USER_PWD_OLD, isRequired: true).SetControlLabel(Translation.SEC.SECS02P002.USER_PWD_OLD).AddCss("col-md-4")
+                            }
+                            using (ra.GridColumn(8).SetMdOffset(2).Begin())
+                            {
+                                @form.PasswordFor(m => m.USER_PWD, isRequired: true).SetControlLabel(Translation.SEC.SECS02P002.USER_PWD_NEW).AddCss("col-md-4")
+                            }
+                            using (ra.GridColumn(8).SetMdOffset(2).Begin())
+                            {
+                                @form.PasswordFor(m => m.USER_PWD_R, isRequired: true).SetControlLabel(Translation.SEC.SECS02P002.USER_PWD_R).AddCss("col-md-4")
+                            }
+                        }
+                    }
+                    @form.HiddenFor(m => m.IDCPWD)
+                }
+                @Html.GetVSMWidgetsEnd()
+            }
+            <fieldset>
+                <legend></legend>
+                @using (var r = Html.Bootstrap().GridRow().Begin())
+                {
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.InputFor(m => m.USER_FNAME_TH, isRequired: true)
+                    }
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.InputFor(m => m.USER_LNAME_TH)
+                    }
+                }
+
+                @using (var r = Html.Bootstrap().GridRow().Begin())
+                {
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.InputFor(m => m.USER_FNAME_EN, isRequired: true)
+                    }
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.InputFor(m => m.USER_LNAME_EN)
+                    }
+                }
+
+                @using (var r = Html.Bootstrap().GridRow().Begin())
+                {
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.SelectFor(t => t.TITLE_NAME_TH, Model.TITLE_ID_MODEL.ToSelectList("Value", "Text", Model.TITLE_ID), isRequired: true)
+                    }
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.SelectFor(t => t.USG_ID, Model.USG_ID_MODEL.ToSelectList("Value", "Text", Model.USG_ID), isRequired: true)
+                    }
+                }
+
+                @using (var r = Html.Bootstrap().GridRow().Begin())
+                {
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.InputFor(t => t.TELEPHONE)
+                    }
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.InputFor(t => t.EMAIL)
+                    }
+                }
+
+                @using (var r = Html.Bootstrap().GridRow().Begin())
+                {
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.SelectFor(t => t.USER_STATUS, Model.USER_STATUS_MODEL.ToSelectList("Value", "Text", Model.USER_STATUS), isRequired: true)
+                    }
+                }
+
+                @using (var r = Html.Bootstrap().GridRow().Begin())
+                {
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.CheckBoxFor(t => t.IS_DISABLED).SetControlLabel("Permission").AddContent(Translation.SEC.SECS02P002.IS_DISABLED_ADD)
+                    }
+                    using (r.GridColumn(6).Begin())
+                    {
+                        @form.HiddenFor(t => t.IS_ADMIN)
+                        // @form.SelectFor(t => t.APP_CODE, Model.APP_CODE_MODEL.ToSelectList("Value", "Text", Model.APP_CODE), isRequired: true )
+                    }
+                }
+
+            </fieldset>
+        }
+        using (var row1 = Html.Bootstrap().GridRow().Begin())
+        {
+            using (row1.GridColumn(12).Begin())
+            {
+                @Html.GetVSMDetailFor(m => m.Details)
+                // @Html.HiddenFor(m => m.COM_CODE, new { data_indexparameter = 0 })
+            }
+        }
+    }
+}
+
+@section modals{
+    @Html.GetVSMModalDetailBeginFor(m => m.Details)
+
+    @using (var formPopup = Html.Bootstrap().Form().SetId("formDetails").SetHorizontal().Begin())
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        using (var rowInfo = Html.Bootstrap().GridRow().Begin())
+        {
+            using (rowInfo.GridColumn(6).Begin())
+            {
+                @formPopup.SelectFor(t => t.APP_CODE, Model.APP_CODE_MODEL.ToSelectList("Value", "Text", Model.APP_CODE), isRequired: true)
+            }
+            using (rowInfo.GridColumn(6).Begin())
+            {
+                <div class="form-group">
+                    <label for="COM_CODE_TXT" class="control-label col-md-4">@Translation.SEC.SECS02P002.COM_CODE:</label>
+                    <div class="col-md-8">
+                        <label for="COM_CODE" id="L_COM_CODE" class="control-label"></label>
+                    </div>
+                </div>
+            }
+        }
+        using (var rowInfo = Html.Bootstrap().GridRow().Begin())
+        {
+            using (rowInfo.GridColumn(6).Begin())
+            {
+                <div class="form-group">
+                    <label for="COM_CODE_T_TXT" class="control-label col-md-4">@Translation.SEC.SECS02P002.COM_CODE_T:</label>
+                    <div class="col-md-8">
+                        <label for="COM_CODE_T" id="L_COM_CODE_T" class="control-label"></label>
+                    </div>
+                </div>
+            }
+            using (rowInfo.GridColumn(6).Begin())
+            {
+                <div class="form-group">
+                    <label for="COM_CODE_E_TXT" class="control-label col-md-4">@Translation.SEC.SECS02P002.COM_CODE_E:</label>
+                    <div class="col-md-8">
+                        <label for="COM_CODE_E" id="L_COM_CODE_E" class="control-label"></label>
+                    </div>
+                </div>
+            }
+        }
+        @formPopup.HiddenFor(a => a.COM_CODE)
+        @formPopup.HiddenFor(a => a.COM_CODE_E)
+        @formPopup.HiddenFor(a => a.COM_CODE_T)
+        @formPopup.HiddenFor(a => a.USER_ID)
+        @*using (var rowInfo = Html.Bootstrap().GridRow().Begin())
+            {
+                using (rowInfo.GridColumn(6).Begin())
+                {
+                    @formPopup.SelectFor(t => t.COM_CODE, Model.APP_CODE_MODEL.ToSelectList("Value", "Text", Model.APP_CODE), isRequired: true)
+                }
+                using (rowInfo.GridColumn(6).Begin())
+                {
+                    @formPopup.InputFor(t => t.MODULE, isRequired: true)
+                }
+            }*@
+    }
+    @Html.GetVSMModalDetailEnd()
+}
+
+@section Scripts {
+    @Html.GetVSMDetailScriptFor(
+            t => t.Details,
+            new VSMDetailConfig
+            {
+                DefaultConfig = new DefaultConfig(Url.Action("BindDetail")),
+                IsRequired = true,
+                Searching = true,
+                ScrollX = false,
+                OnBeforeAdd = "OnBeforeAddDetail",
+                WidthType = ColumnsWidthType.Pixel
+            },
+
+           new GridColumn("COM_CODE").SetNotVisible().SetKey(),
+            new GridColumn("USER_ID").SetNotVisible().SetKey(),
+            //new GridColumn("MODULE").SetNotVisible().SetKey(),
+
+            new GridColumn("COM_CODE", Translation.CenterLang.Center.APP_CODE, 20),
+            new GridColumn("COM_CODE_T", Translation.CenterLang.Center.COM_NAME_T, 20),
+            new GridColumn("COM_CODE_E", Translation.CenterLang.Center.COM_NAME_E, 20),
+            //new GridColumn("MODULE", Translation.SEC.SECS01P001.MODULE, 20),
+            new GridColumn("USER_ID", Translation.SEC.SECS01P001.USER_ID, 20).SetNotVisible()
+        )
+
+
+    <script>
+        function OnBeforeAddDetail(e) {
+            $("#L_COM_CODE").text('');
+            $("#L_COM_CODE_T").text('');
+            $("#L_COM_CODE_E").text('');
+
+            $("#COM_CODE_E").val('')
+            $("#COM_CODE_T").val('')
+            $("#COM_CODE").val('')
+
+            $("#formDetails #USER_ID").val($("#form1 #USER_ID").val())
+        }
+
+        function OnEditDetails(i, name) {
+            var data = GridDetails.row(i).data();
+            $.each($("#formDetails").serializeArray(), function (i, element) {
+                var ctrl = $("#formDetails [name='" + element.name + "']");
+                if (ctrl != undefined && ctrl != null && data[element.name] != undefined && data[element.name] != null && !isNullOrEmpty(data[element.name])) {
+                    if (ctrl[0].type == "checkbox") {
+                        ctrl.prop("checked", data[element.name] == "Y");
+                        ctrl.val(data[element.name] + "");
+                    } else if (ctrl[0].type == "text" && ctrl.hasClass("datepicker-input")) {
+                        ctrl.val(jsonDateToFormat(data[element.name]));
+                        if (ctrl.hasClass("datepicker")) {
+                            ctrl.datepicker("setDate", $.stringToDate(jsonDateToFormat(data[element.name])));
+                        }
+                    } else if (ctrl[0].type == "text" && ctrl.hasClass("number-format")) {
+                        ctrl.val(toNumberFormat(data[element.name]));
+                        ctrl.focusout();
+                    } else {
+                        ctrl.val(data[element.name] + "");
+                    }
+                }
+            });
+            $("#mdTitleDetails").text("Edit Details");
+            $("#btnSaveDetails").data("index", i);
+            $("#btnSaveDetails").data("mode", "edit"); $("#mdDetails").modal();
+
+            $("#L_COM_CODE").text(data.COM_CODE);
+            $("#L_COM_CODE_T").text(data.COM_CODE_T);
+            $("#L_COM_CODE_E").text(data.COM_CODE_E);
+
+            $("#COM_CODE_E").val(data.COM_CODE_E)
+            $("#COM_CODE_T").val(data.COM_CODE_T)
+            $("#COM_CODE").val(data.COM_CODE)
+
+            return false;
+        }
+
+        $(document).ready(function () {
+            $("#formDetails #APP_CODE").change(function () {
+                var formData = $("#formDetails").serializeFormData();
+                $.ajax({
+                    url: '@Url.Action("GetFullAppName")',
+                    type: 'post',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        $("#L_COM_CODE").text(response.data.COM_CODE);
+                        $("#L_COM_CODE_T").text(response.data.COM_CODE_T);
+                        $("#L_COM_CODE_E").text(response.data.COM_CODE_E);
+
+                        $("#COM_CODE_E").val(response.data.COM_CODE_E)
+                        $("#COM_CODE_T").val(response.data.COM_CODE_T)
+                        $("#COM_CODE").val(response.data.COM_CODE)
+                    },
+                    error: OnAjaxError
+                });
+            })
+        })
+        /*********************************************CHECK PW************************************************/
+        $("#REPWD").addClass("@Css.Hidden")
+
+        $('#USER_PWD_R').val('0');
+        $('#USER_PWD').val('0');
+        $('#USER_PWD_OLD').val('0');
+
+        $("#RePassword").click(function () {
+            $("#REPWD").removeClass("@Css.Hidden")
+            $("#notification").hide()
+            $('#USER_PWD_R').val('');
+            $('#USER_PWD').val('');
+            $('#USER_PWD_OLD').val('');
+        });
+
+        function checkpw(pw) {
+            var number = /([0-9])/;
+            var alphabets = /([a-zA-Z])/;
+            var special_characters = /([~,!,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+            $("#SaveModify").addClass('@Css.Hidden');
+            if (pw.length < 6) {
+                alertErr("Password is Weak (should be atleast 6 characters.)");
+            } else {
+                if (pw.match(number) && pw.match(alphabets) && pw.match(special_characters)) {
+                    alertSucs("Password is Strong");
+                } else {
+                    alertErr("Password is Medium (should include alphabets, numbers and special characters.)");
+                }
+            }
+        }
+        function checkl(pw) {
+            if (pw.length < 6) {
+                return true
+            } else {
+                return false
+            }
+        }
+        $("#USER_PWD_R").keyup(function () {
+            if (checkl($("#USER_PWD_R").val())) {
+                alertErr("Confirm Password Should be atleast 6 characters.");
+            } else {
+                $("#notification").hide()
+                if ($('#USER_PWD').val().match($('#USER_PWD_R').val())) {
+                    $("#SaveModify").removeClass('@Css.Hidden');
+                    $("#notification").hide()
+                    $('#IDCPWD').val('0');
+                } else {
+                    alertErr("New Password and Confirm Password is not matching");
+                    $("#SaveModify").addClass('@Css.Hidden');
+                }
+            }
+
+        });
+        $("#USER_PWD").keyup(function () {
+            if (checkl($("#USER_PWD").val())) {
+                alertErr("New Password Should be atleast 6 characters.");
+            } else {
+                $("#notification").hide()
+                if ($('#USER_PWD').val().match($('#USER_PWD_R').val())) {
+                    $("#SaveModify").removeClass('@Css.Hidden');
+                    $("#notification").hide()
+                    $('#IDCPWD').val('0');
+                } else {
+                    alertErr("Password is not matching");
+                    $("#SaveModify").addClass('@Css.Hidden');
+                }
+            }
+        });
+
+        $("#USER_PWD_OLD").change(function (e) {
+            waitingDialog.show();
+            var OLD_PWD = $('#USER_PWD_OLD').val();
+            var USER_ID = $('#USER_ID').val();
+            $.ajax({
+                url: '@Url.Action("GetOldPwd")',
+                type: 'post',
+                processData: false,
+                data: JSON.stringify({ OLD_PWD: OLD_PWD, USER_ID: USER_ID }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (resultAfter) {
+                    if (resultAfter.data.ERROR_CODE != '0') {
+                        alertErr(resultAfter.data.ERROR_CODE)
+                        $("#SaveModify").addClass('@Css.Hidden');
+                    } else {
+                        $("#notification").hide()
+                        $("#SaveModify").removeClass('@Css.Hidden');
+                    }
+                    waitingDialog.hide();
+                },
+                error: function () {
+                    OnAjaxError
+                    waitingDialog.hide();
+                }
+            })
+        });
+        /************************************************END**************************************************/
+        /***********************************************ALERT*************************************************/
+        function alertSucs(data) {
+            $("#notification").hide()
+            var content = '<div class="alert alert-' + 'success' + ' alert-dismissable alert-' + 'success' + 'new"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><h2>';
+            content += '<i class="ace-icon fa fa-exclamation-triangle bigger-130"></i> ';
+            content += data + '</h2>';
+            content += '</div>';
+
+            $("#notification").html(content).fadeTo(2000, 500);
+        }
+        function alertErr(data) {
+            $("#notification").hide()
+            var content = '<div class="alert alert-' + 'danger' + ' alert-dismissable alert-' + 'danger' + 'new"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button><h2>';
+            content += '<i class="ace-icon fa fa-exclamation-triangle bigger-130"></i> ';
+            content += data + '</h2>';
+            content += '</div>';
+
+            $("#notification").html(content).fadeTo(2000, 500);
+        }
+        /************************************************END**************************************************/
+
+
+        $(document).ready(function () {
+            var formData = $("#form1").serializeFormData();
+            $.ajax({
+                url: '@Url.Action("CheckAdmin")',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != null && response != isNullOrEmpty && response.data.IS_ADMIN != null) {
+                        $('#IS_ADMIN').val(response.data.IS_ADMIN)
+                        if (response.data.IS_ADMIN == 'S' || response.data.IS_ADMIN == 'A') {
+                            $("#wgDetails").hide()
+                        }
+                    }
+                },
+                error: OnAjaxError
+            });
+        });
+
+        $("#form1 #USG_ID").change(function () {
+            var data = $("#form1 #USER_ID").val()
+            var formData = $("#form1").serializeFormData();
+            $.ajax({
+                url: '@Url.Action("CheckAdmin")',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != null && response != isNullOrEmpty && response.data.IS_ADMIN != null) {
+                        $('#IS_ADMIN').val(response.data.IS_ADMIN)
+                        if (response.data.IS_ADMIN == 'S' || response.data.IS_ADMIN == 'A') {
+                            $("#wgDetails").hide()
+                        } else {
+                            $("#wgDetails").show()
+                            if (data == isNullOrEmpty || data == "") {
+                                $("#btnAddDetails").hide()
+                            } else {
+                                $("#btnAddDetails").show()
+                                $("#form1 #USER_ID").prop("readonly", true);
+                            }
+                        }
+                    }
+                },
+                error: OnAjaxError
+            });
+        })
+
+        $("#btnDeleteDetails").prop('id', 'DeleteDetail');
+        $("#DeleteDetail").show()
+
+        $("#DeleteDetail").confirm({
+            title: null,
+            content: "<br/>Are you sure to continue?",
+            columnClass: 'medium',
+            buttons: {
+                confirm: {
+                    text: 'OK',
+                    btnClass: "btn-primary",
+                    action: DeleteDetail
+                },
+                cancel: {
+                    text: 'Cancel',
+                    btnClass: "btn-primary"
+                }
+            }
+        })
+
+        function DeleteDetail() {
+            var data = GridDetails.rows({ selected: true }).data();
+            if (data != undefined && data != null && data.length > 0) {
+                var nData = { data: [] };
+                $.each(data, function (i, item) {
+                    nData.data.push({
+                        COM_CODE: item.COM_CODE,
+                        USER_ID: item.USER_ID,
+                        MODULE: item.MODULE
+                    });
+                });
+                $.ajax({
+                    url: "@Url.Action("DeleteDetails")",
+                    type: "post",
+                    data: nData,
+                    success: function (result) {
+                        if (result != null && result != undefined) {
+                            if (result.data.IsResult) {
+                                GridDetails.rows({ selected: true }).remove().draw();
+                                OnAjaxSuccess
+                                $("#notification").hide()
+                            }
+                            else {
+                                alertErr('Cannot Delete')
+                            }
+
+                        }
+                        OnAjaxSuccess
+                    },
+                    error: OnAjaxError
+                });
+            }
+            else {
+                var result = {
+                    Mode: 'Delete',
+                    Status: false,
+                    Message: 'Please Specify Data',
+                    Style: 'danger'
+                };
+                OnAjaxSuccess(result);
+            }
+
+            // bindGridDetails({ page: 1 });
+        }
+    </script>
+}
