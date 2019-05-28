@@ -51,5 +51,34 @@
         new GridColumn("TITLE_NAME_TH", Translation.SEC.SECS02P003.TITLE_NAME_TH, 50),
         new GridColumn("TITLE_NAME_EN", Translation.SEC.SECS02P003.TITLE_NAME_EN, 50)
         )
+<script type="text/javascript">
+            const onPressOnly = (event, regex) => {
+                var eventCode = event.which;
+                if ((eventCode >= 37 && eventCode <= 40) || eventCode == 8 || eventCode == 9 || eventCode == 46) { // Left  / Right Arrow, Backspace, Delete keys
+                    return;
+                }
+                if (regex.test(event.key) === false) {
+                    event.preventDefault()
+                    return false;
+                }
+            }
+            // TH
+            $(document).ready(function () {
+                $("#TITLE_NAME_TH").on("keydown", (event) => {
+                    return onPressOnly(event, /^[ก-๛]+$/)
+                });
+            });
 
+            // END TH
+
+
+            // ENG
+            $(document).ready(function () {
+                $("#TITLE_NAME_EN").on("keydown", (event) => {
+                    return onPressOnly(event, /^[A-Za-z]+$/)
+                });
+            });
+
+            //END ENG
+</script>
 }

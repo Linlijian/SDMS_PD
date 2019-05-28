@@ -77,4 +77,35 @@
         new GridColumn("PRG_TYPE", Translation.SEC.SECS01P003.PRG_TYPE, 10),
         new GridColumn("PRG_STATUS", Translation.SEC.SECS01P003.PRG_STATUS, 7, ColumnsTextAlign.Center)
         )
+<script type="text/javascript">
+        const onPressOnly = (event, regex) => {
+            var eventCode = event.which;
+            if ((eventCode >= 37 && eventCode <= 40) || eventCode == 8 || eventCode == 9 || eventCode == 46) { // Left  / Right Arrow, Backspace, Delete keys
+                return;
+            }
+            if (regex.test(event.key) === false) {
+                event.preventDefault()
+                return false;
+            }
+        }
+        // TH
+        $(document).ready(function () {
+            $("#PRG_NAME_TH").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        // END TH
+
+
+        // ENG
+        $(document).ready(function () {
+            $("#PRG_NAME_EN").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        //END ENG
+</script>
+
 }

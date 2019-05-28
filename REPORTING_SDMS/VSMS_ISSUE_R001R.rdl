@@ -2449,7 +2449,7 @@
                                                     <Value>Total</Value>
                                                     <Style>
                                                       <FontFamily />
-                                                      <FontSize>12pt</FontSize>
+                                                      <FontSize>11pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
                                                       <Color>#333333</Color>
                                                     </Style>
@@ -2490,14 +2490,14 @@
                                                     <Value>=Count(Fields!NO.Value)</Value>
                                                     <Style>
                                                       <FontFamily />
-                                                      <FontSize>12pt</FontSize>
+                                                      <FontSize>11pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
                                                       <Color>#333333</Color>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
                                                 <Style>
-                                                  <TextAlign>Right</TextAlign>
+                                                  <TextAlign>Center</TextAlign>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>

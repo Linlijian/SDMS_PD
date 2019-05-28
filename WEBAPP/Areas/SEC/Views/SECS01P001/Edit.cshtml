@@ -214,3 +214,255 @@
         }
     }
 }
+@section scripts{
+    <script type="text/javascript">
+        const onPressOnly = (event, regex) => {
+            var eventCode = event.which;
+            if ((eventCode >= 37 && eventCode <= 40) || eventCode == 8 || eventCode == 9 || eventCode == 46) { // Left  / Right Arrow, Backspace, Delete keys
+                return;
+            }
+            if (regex.test(event.key) === false) {
+                event.preventDefault()
+                return false;
+            }
+        }
+        // TH
+        $(document).ready(function () {
+            $("#COM_NAME_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_NAME_SHORT_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_BRANCH_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_ADDR1_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_ADDR2_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_SOI_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_ROAD_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_AMPHUR_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_DISTRICT_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_PROVINCE_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_POST_CODE_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_ADDR1_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_ADDR2_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_SOI_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_ROAD_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_DISTRICT_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_AMP_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_PRV_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_POST_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_NAME_T").on("keydown", (event) => {
+                return onPressOnly(event, /^[ก-๛]+$/)
+            });
+        });
+        // END TH
+
+
+        // ENG
+        $(document).ready(function () {
+            $("#COM_NAME_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_NAME_SHORT_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_ADDR1_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_ADDR2_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_SOI_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_ROAD_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_AMPHUR_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_DISTRICT_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_PROVINCE_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_POST_CODE_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_ADDR1_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_ADDR2_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_SOI_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_ROAD_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_DISTRICT_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_AMP_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_PRV_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_POST_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+
+        $(document).ready(function () {
+            $("#COM_FAC_NAME_E").on("keydown", (event) => {
+                return onPressOnly(event, /^[A-Za-z]+$/)
+            });
+        });
+        //END ENG
+    </script>
+}
