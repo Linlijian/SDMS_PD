@@ -197,6 +197,50 @@
                 processData: false,
                 success: function (Dashboard) {
                     if (Dashboard != null && Dashboard != isNullOrEmpty) {
+                        //
+                        window.onload = function () {
+                            var ctx = document.getElementById('AllAppLication').getContext('2d');
+                            window.myDoughnut = new Chart(ctx, config);
+                        };
+                        var config = {
+                            type: 'doughnut',
+                            data: {
+                                datasets: [{
+                                    data: [
+                                       Dashboard.data.APP_1, Dashboard.data.APP_2, Dashboard.data.APP_3, Dashboard.data.APP_4, Dashboard.data.APP_5
+                                    ],
+                                    backgroundColor: [
+                                        'Red',
+                                    'Orange',
+                                    'Yellow',
+                                    'Green',
+                                    'Blue'
+                                    ],
+                                    label: 'Dataset 1'
+                                }],
+                                labels: [
+                                    'FZMS',
+                                    'GBMSR2',
+                                    'DLT',
+                                    'EXTS',
+                                    'CMAH'
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Issue Opening in All Application'
+                                },
+                                animation: {
+                                    animateScale: true,
+                                    animateRotate: true
+                                }
+                            }
+                        };
                         //PriolityChart
                         var ctx = document.getElementById('PriolityChart').getContext('2d');
                         var chart = new Chart(ctx, {
@@ -332,50 +376,7 @@
                                 }
                             }
                         });
-                        //
-                        window.onload = function () {
-                            var ctx = document.getElementById('AllAppLication').getContext('2d');
-                            window.myDoughnut = new Chart(ctx, config);
-                        };
-                        var config = {
-                            type: 'doughnut',
-                            data: {
-                                datasets: [{
-                                    data: [
-                                       Dashboard.data.APP_1, Dashboard.data.APP_2, Dashboard.data.APP_3, Dashboard.data.APP_4, Dashboard.data.APP_5
-                                    ],
-                                    backgroundColor: [
-                                        'Red',
-                                    'Orange',
-                                    'Yellow',
-                                    'Green',
-                                    'Blue'
-                                    ],
-                                    label: 'Dataset 1'
-                                }],
-                                labels: [
-                                    'FZMS',
-                                    'GBMSR2',
-                                    'DLT',
-                                    'EXTS',
-                                    'CMAH'
-                                ]
-                            },
-                            options: {
-                                responsive: true,
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Issue Opening in All Application'
-                                },
-                                animation: {
-                                    animateScale: true,
-                                    animateRotate: true
-                                }
-                            }
-                        };
+                        
                     }
                 },
                 error: OnAjaxError

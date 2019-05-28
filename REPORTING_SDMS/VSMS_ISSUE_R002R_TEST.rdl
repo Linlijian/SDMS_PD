@@ -15880,92 +15880,11 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Sum(Fields!CMAH_BUG_CC.Value + 
-		Fields!CMAH_BUG_SW.Value + 
-		Fields!CMAH_BUG_MA.Value + 
-		Fields!CMAH_BUGNR_CC.Value + 
-		Fields!CMAH_BUGNR_SW.Value + 
-		Fields!CMAH_BUGNR_MA.Value + 
-		Fields!CMAH_BUSINESS_CC.Value + 
-		Fields!CMAH_BUSINESS_SW.Value + 
-		Fields!CMAH_BUSINESS_MA.Value + 
-		Fields!CMAH_BUSINESSWT_CC.Value + 
-		Fields!CMAH_BUSINESSWT_SW.Value + 
-		Fields!CMAH_BUSINESSWT_MA.Value + 
-		Fields!CMAH_CONSULT_CC.Value +
-		Fields!CMAH_CONSULT_SW.Value +
-		Fields!CMAH_CONSULT_MA.Value +
-		Fields!CMAH_CONSULTWT_CC.Value +
-		Fields!CMAH_CONSULTWT_SW.Value +
-		Fields!CMAH_CONSULTWT_MA.Value +
-		Fields!CMAH_DATA_CC.Value +
-		Fields!CMAH_DATA_SW.Value +
-		Fields!CMAH_DATA_MA.Value +
-		Fields!CMAH_DATAWT_CC.Value +
-		Fields!CMAH_DATAWT_SW.Value +
-		Fields!CMAH_DATAWT_MA.Value +
-		Fields!CMAH_SYSTEM_CC.Value +
-		Fields!CMAH_SYSTEM_SW.Value +
-		Fields!CMAH_SYSTEM_MA.Value +
-		Fields!CMAH_UNDEFINE_CC.Value +
-		Fields!CMAH_UNDEFINE_SW.Value +
-		Fields!CMAH_UNDEFINE_MA.Value +
-		Fields!CMAH_USER_CC.Value +
-		Fields!CMAH_USER_SW.Value +
-		Fields!CMAH_USER_MA.Value +
-		Fields!CMAH_UNDEFINEWT_CC.Value +
-		Fields!CMAH_UNDEFINEWT_SW.Value +
-		Fields!CMAH_UNDEFINEWT_MA.Value +
-		Fields!CMAH_USERFWT_CC.Value +
-		Fields!CMAH_USERFWT_SW.Value +
-		Fields!CMAH_USERFWT_MA.Value +
-
-		
-		Fields!DLT_USERFWT_SW.Value +
-		Fields!EXTS_USERFWT_SW.Value +
-		Fields!FZMS_USERFWT_SW.Value +
-		Fields!GBMSR2_USERFWT_SW.Value -
-
-		Fields!CMAH_BUG_CC.Value -
-		Fields!CMAH_BUG_SW.Value -
-		Fields!CMAH_BUG_MA.Value -
-		Fields!CMAH_BUGNR_CC.Value -
-		Fields!CMAH_BUGNR_SW.Value -
-		Fields!CMAH_BUGNR_MA.Value -
-		Fields!CMAH_BUSINESS_CC.Value -
-		Fields!CMAH_BUSINESS_SW.Value -
-		Fields!CMAH_BUSINESS_MA.Value -
-		Fields!CMAH_BUSINESSWT_CC.Value -
-		Fields!CMAH_BUSINESSWT_SW.Value -
-		Fields!CMAH_BUSINESSWT_MA.Value -
-		Fields!CMAH_CONSULT_CC.Value -
-		Fields!CMAH_CONSULT_SW.Value -
-		Fields!CMAH_CONSULT_MA.Value -
-		Fields!CMAH_CONSULTWT_CC.Value -
-		Fields!CMAH_CONSULTWT_SW.Value -
-		Fields!CMAH_CONSULTWT_MA.Value -
-		Fields!CMAH_DATA_CC.Value -
-		Fields!CMAH_DATA_SW.Value -
-		Fields!CMAH_DATA_MA.Value -
-		Fields!CMAH_DATAWT_CC.Value -
-		Fields!CMAH_DATAWT_SW.Value -
-		Fields!CMAH_DATAWT_MA.Value -
-		Fields!CMAH_SYSTEM_CC.Value -
-		Fields!CMAH_SYSTEM_SW.Value -
-		Fields!CMAH_SYSTEM_MA.Value -
-		Fields!CMAH_UNDEFINE_CC.Value -
-		Fields!CMAH_UNDEFINE_SW.Value -
-		Fields!CMAH_UNDEFINE_MA.Value -
-		Fields!CMAH_USER_CC.Value -
-		Fields!CMAH_USER_SW.Value -
-		Fields!CMAH_USER_MA.Value -
-		Fields!CMAH_UNDEFINEWT_CC.Value -
-		Fields!CMAH_UNDEFINEWT_SW.Value -
-		Fields!CMAH_UNDEFINEWT_MA.Value -
-		Fields!CMAH_USERFWT_CC.Value -
-		Fields!CMAH_USERFWT_MA.Value 
-
- )</Value>
+                                                    <Value>=Sum(Fields!CMAH_USERFWT_CC.Value +
+			Fields!DLT_USERFWT_SW.Value +
+			Fields!EXTS_USERFWT_SW.Value +
+			Fields!FZMS_USERFWT_SW.Value +
+			Fields!GBMSR2_USERFWT_SW.Value )</Value>
                                                     <Style>
                                                       <FontSize>12pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>

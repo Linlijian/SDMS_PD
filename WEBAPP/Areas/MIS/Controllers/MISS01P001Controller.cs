@@ -94,8 +94,8 @@ namespace WEBAPP.Areas.MIS.Controllers
             SetHeaderWizard(new WizardHelper.WizardHeaderConfig(
                 ACTIVE_STEP,
                 ACTIVE_WIZARD_MAX,
-                new WizardHelper.WizardHeader("", Url.Action("Index", new { ACTIVE_STEP = "1" }), iconCssClass: FaIcons.FaPencil, textStep: Translation.MIS.MISS01P001.Index1),
-                new WizardHelper.WizardHeader("", Url.Action("Index", new { ACTIVE_STEP = "2" }), iconCssClass: FaIcons.FaSearch, textStep: Translation.MIS.MISS01P001.Index2)));
+               new WizardHelper.WizardHeader(Translation.MIS.MISS01P001.Index1, Url.Action("Index", new { ACTIVE_STEP = "1" }), iconCssClass: FaIcons.FaAreaChart),
+                new WizardHelper.WizardHeader(Translation.MIS.MISS01P001.Index2, Url.Action("Index", new { ACTIVE_STEP = "2" }), iconCssClass: FaIcons.FaFile)));
 
 
             return View(view, localModel);
